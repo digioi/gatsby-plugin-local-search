@@ -46,14 +46,16 @@ const createLunrIndexExport = (
   documents: IndexableDocument[],
   pluginOptions: PluginOptions,
 ): string => {
-  const { ref = DEFAULT_REF, index: indexFields } = pluginOptions
+  const { ref = DEFAULT_REF, index: indexFields, boosts } = pluginOptions
 
   const fields =
     indexFields ?? documents.length > 0 ? Object.keys(documents[0]) : []
 
   const index = lunr(function () {
     this.ref(ref)
-    fields.forEach((field) => this.field(field))
+    fields.forEach((field, idx) => {
+      this.field(field, boosts ?? boosts[idx])
+    })
     documents.forEach((doc) => this.add(doc))
   })
 
