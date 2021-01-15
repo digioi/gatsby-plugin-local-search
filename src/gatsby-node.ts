@@ -54,8 +54,8 @@ const createLunrIndexExport = (
   const index = lunr(function () {
     this.ref(ref)
     fields.forEach((field) => {
-      const [name, boost] = field.split("^")
-      this.field(name, boost ?? {boost: parseInt(boost)})
+      const [name, boost] = field.split("^");
+      this.field(name, {boost: boost ? Number(boost).valueOf() : undefined})
     })
     documents.forEach((doc) => this.add(doc))
   })
