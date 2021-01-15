@@ -36,6 +36,7 @@ export interface PluginOptions extends GatsbyPluginOptions {
   ref?: string
   index?: string[]
   store?: string[]
+  boosts?: number[] 
   query: string
   normalizer: (input: NormalizerInput) => IndexableDocument[]
 }
